@@ -1,0 +1,48 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/myw506/springcloud-config.git #GitHub上面的git仓库名字
+          #搜索目录
+          search-paths:
+            - springcloud-config
+      #读取分支
+      label: master
+  #rabbitmq相关配置
+  rabbitmq:
+    host: 192.168.0.140
+    port: 5673
+    username: root
+    password: lctx834@m051server
+
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true #是否从EurekaServer抓取已有的注册信息，默认true，单节点无所谓，集群必须为true配合
+    service-url:
+      #单机方式
+      #defaultZone: http://eureka7002.com:7002/eureka
+      #集群方式
+      defaultZone: http://eureka7002.com:7002/eureka, http://eureka7003.com:7003/eureka
+  instance:
+    instance-id: configServer3344 #修改主机名称
+    prefer-ip-address: true #显示ip
+    lease-renewal-interval-in-seconds: 1 #Eureka客户端向服务端发送心跳的时间，单位秒(默认30)
+    lease-expiration-duration-in-seconds: 2 #Eureka服务端在收到最后一次心跳后等待的时间上限，单位秒(默认90)，超时将删除服务
+
+#rabbitmq相关配置，暴漏bus刷新配置的端点
+management:
+  endpoints: #暴漏bus刷新配置的端点
+    web:
+      exposure:
+        include: "bus-refresh"
+
+

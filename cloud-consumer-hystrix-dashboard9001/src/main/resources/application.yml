@@ -1,0 +1,4 @@
+#http://localhost:9001/hystrix
+server:
+  port: 9001
+

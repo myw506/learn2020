@@ -1,0 +1,9 @@
+git clone https://github.com/myw506/springcloud-config
+
+本地
+echo "springcloud-config" > README.md
+echo "config: \t  info: "master branch,springcloud-config/config-dev.yml version-1"" > config-dev.yml
+
+git add .
+git commit -m "注册中心"
+git push origin master

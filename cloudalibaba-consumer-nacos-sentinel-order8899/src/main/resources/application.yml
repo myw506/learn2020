@@ -1,0 +1,30 @@
+#server.port=9001
+#spring.application.name=nacos-provider
+#spring.cloud.nacos.discovery.server-addr=127.0.0.1:8848
+#management.endpoints.web.exposure.include=*
+server:
+  port: 8899
+
+spring:
+  application:
+    name: nacos-order-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+      #持久化配置
+      datasource:
+        ds1:
+          nacos:
+            server-addr: localhost:8848
+            dataId: nacos-order-consumer
+            group: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+
+service-url:
+  nacos-user-service: http://nacos-payment-provider
